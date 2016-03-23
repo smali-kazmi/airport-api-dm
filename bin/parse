@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+
+var csv = require("fast-csv");
+var saveService = require("../services/save");
+var header = null;
+var Queue = require('mel-queue');
+var q = new Queue();
+
+csv
+ .fromPath("file.csv")
+ .transform(function(data){
+    if(!header) {
+      header = data;
+      data = null;
+    } else {
+      data = mapToHeader(header, data);
+    }
+    return data;
+ })
+ .on("data", function(data){
+    q.add(function(queue){
+      saveService
+        .record(data)
+        .then(function(saveData){
+          console.log('Data is saved');
+          queue.next();
+        })
+        .catch(function(error){
+          console.log(error);
+          queue.next();
+        });
+    });
+
+     
+ })
+ .on("end", function(){
+     console.log("done");
+ });
+
+q.on('end', function() {
+  console.log('Queue ended');
+  process.exit();
+});
+
+setTimeout(function(){
+  q.run();
+}, 1000);
+
+
+var mapToHeader = function(header, data) {
+  var obj = {};
+
+  for(var x in header) {
+    obj[header[x]] = data[x];
+  }
+  return obj;
+};
