@@ -50,6 +50,12 @@ module.exports = function(sequelize, DataTypes) {
           "ORDER BY total_reviews desc"
         ].join(" ");
         return sequelize.query(query, {type: sequelize.QueryTypes.SELECT});
+      },
+      getStatById: function(id) {
+        return this.find({
+          where: {id: id},
+          include: [{model: global.db.Review, as: 'reviews'}]
+        })
       }
     }
   });

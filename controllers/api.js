@@ -13,3 +13,16 @@ exports.getAllStats = function(req, res) {
       res.status(500).json({'message': 'Internal Server Error'});
     });
 };
+
+exports.getAirportStats = function(req, res) {
+
+  apiService
+    .getAirportStats(req.params.airport_id)
+    .then(function(stats){
+      res.json(stats);
+    })
+    .catch(function(error){
+      console.log(error);
+      res.status(500).json({'message': 'Internal Server Error'});
+    });
+};
