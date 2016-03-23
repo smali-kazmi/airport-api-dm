@@ -30,8 +30,20 @@ exports.getAirportStats = function(airport_id) {
 
         var data = _.pick(stats, 'id', 'name', 'link', 'title');
         data['reviews'] = stats.reviews.length;
-        data['average'] = _.map(stats.reviews, 'overall_rating').reduce(function(a, b){ return a + b}) / stats.reviews.length;
-        data['recommended'] = _.filter(stats.reviews, function(r){ return r.recommended === 1 }).length;
+        var dataForAverage = _.chain(stats.reviews)
+                            .map('overall_rating')
+                            .filter(function(a){
+                              return a !== null;
+                            })
+                            .value();
+        data['average'] = dataForAverage
+                            .reduce(function(a, b){
+                              return a + b;
+                            }) / dataForAverage.length;
+
+        data['recommended'] = _.filter(stats.reviews, function(r){ 
+                                return r.recommended === 1 
+                              }).length;
 
         resolve(data);
       })
