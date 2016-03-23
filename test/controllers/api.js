@@ -147,7 +147,7 @@ describe('This section contains api service test cases', function() {
         });
     });
 
-    it.only('should return all records', function(done){
+    it('should return all records', function(done){
 
       var RSVP = require('rsvp');
       var records = fixtures.customData();
