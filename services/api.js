@@ -27,7 +27,13 @@ exports.getAirportStats = function(airport_id) {
     db.Airport
       .getStatById(airport_id)
       .then(function(stats){
-        resolve(stats);
+
+        var data = _.pick(stats, 'id', 'name', 'link', 'title');
+        data['reviews'] = stats.reviews.length;
+        data['average'] = _.map(stats.reviews, 'overall_rating').reduce(function(a, b){ return a + b}) / stats.reviews.length;
+        data['recommended'] = _.filter(stats.reviews, function(r){ return r.recommended === 1 }).length;
+
+        resolve(data);
       })
       .catch(function(error){
         reject(error);
