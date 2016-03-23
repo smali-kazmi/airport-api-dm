@@ -1,4 +1,5 @@
 var Faker = require('faker');
+var _ = require('lodash');
 
 module.exports = {
   Users: {
@@ -76,6 +77,36 @@ module.exports = {
       {},
       {'date': ''}
     ]
+  },
+  customData: function(){
+
+    var data = [];
+    data.push(_.assignIn({}, 
+        this.Users.validData[0],
+        this.Airports.validData[0],
+        this.Reviews.validData[0]
+      )
+    );
+    data.push(_.assignIn({}, 
+        this.Users.validData[0],
+        this.Airports.validData[0],
+        this.Reviews.validData[1]
+      )
+    );
+    data.push(_.assignIn({}, 
+        this.Users.validData[0],
+        this.Airports.validData[0],
+        this.Reviews.validData[2]
+      )
+    );
+
+    data.push(_.assignIn({}, 
+        this.Users.validData[0],
+        this.Airports.validData[1],
+        this.Reviews.validData[1]
+      )
+    );
+
   }
 
 };

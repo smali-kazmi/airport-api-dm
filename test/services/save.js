@@ -5,6 +5,10 @@ var _ = require('lodash');
 
 describe('This section contains save service test cases', function() {
 
+  beforeEach(function(){
+    return db.sequelize.sync({force: true});
+  });
+
   describe('#record invalid data data set', function(){
     
     it('should be in catch Invalid data', function(done){
@@ -27,7 +31,7 @@ describe('This section contains save service test cases', function() {
                 );
 
       saveService
-        .record()
+        .record(data)
         .then(function(record){
           done('Should not in then')
         })
@@ -75,14 +79,6 @@ describe('This section contains save service test cases', function() {
   });
 
   describe('#record data set', function(){
-    beforeEach(function(done){
-      var RSVP = require('rsvp');
-      RSVP.all([db.sequelize.sync({force: true})]).then(function() {
-        done();
-      }).catch(function(reason){
-        done();
-      });
-    });
 
     it('should save record', function(done){
       var data = _.assignIn({}, 
