@@ -33,7 +33,6 @@ describe('This section contains api service test cases', function() {
         saveService
           .record(record)
           .then(function(saved){
-            console.log(JSON.stringify(saved));
             cb();
           })
           .catch(function(){
@@ -43,12 +42,15 @@ describe('This section contains api service test cases', function() {
           apiService
             .getAllStats()
             .then(function(records){
-              console.log(records);
               records.length.should.equal(2);
               records[0].should.have.property('id');
               records[0].should.have.property('name');
               records[0].should.have.property('total_reviews');
               records[0].total_reviews.should.equal(3);
+
+              records[1].should.have.property('id');
+              records[1].should.have.property('name');
+              records[1].should.have.property('total_reviews');
               records[1].total_reviews.should.equal(1);
               done();
             })
