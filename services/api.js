@@ -36,10 +36,10 @@ exports.getAirportStats = function(airport_id) {
                               return a !== null;
                             })
                             .value();
-        data['average'] = dataForAverage
+        data['average'] = dataForAverage.length > 0 ? dataForAverage
                             .reduce(function(a, b){
                               return a + b;
-                            }) / dataForAverage.length;
+                            }) / dataForAverage.length : 0;
 
         data['recommended'] = _.filter(stats.reviews, function(r){ 
                                 return r.recommended === 1 
