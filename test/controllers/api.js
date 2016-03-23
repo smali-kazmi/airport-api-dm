@@ -70,7 +70,64 @@ describe('This section contains api service test cases', function() {
       });
     });
     
-    
+  });
+
+  describe('GET /api/[airport]/stats', function(){
+    var url = '/api/1/stats';
+    it('should return emtpy list', function(done){
+      request(app)
+        .get(url)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.should.be.instanceof(Object);
+          res.body.should.equal({})
+          done();
+        });
+    });
+
+    it.only('should return all records', function(done){
+
+      var RSVP = require('rsvp');
+      var records = fixtures.customData();
+      var promises = [];
+
+      async.eachSeries(records, function(record, cb){
+        saveService
+          .record(record)
+          .then(function(saved){
+            cb();
+          })
+          .catch(function(){
+            cb();
+          });
+      }, function(error){
+        request(app)
+          .get(url)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res) {
+            if (err) return done(err);
+
+            res.body.should.have.property('id');
+            res.body.should.have.property('name');
+            res.body.should.have.property('link');
+            res.body.should.have.property('title');
+            res.body.should.have.property('reviews');
+            res.body.should.have.property('average');
+            res.body.should.have.property('recommended');
+
+            res.body.reviews.should.eql(3);
+            res.body.average.should.eql(1);
+            res.body.recommended.should.eql(0);
+
+            done();
+          });
+            
+      });
+    });
+
   });
 
   
