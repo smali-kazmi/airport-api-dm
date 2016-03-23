@@ -5,9 +5,7 @@ var _ = require('lodash');
 
 describe('This section contains save service test cases', function() {
 
-  beforeEach(function(){
-    return db.sequelize.sync({force: true});
-  });
+  require('../lib/testUtil').reset();
 
   describe('#record invalid data data set', function(){
     

@@ -31,17 +31,17 @@ module.exports = {
   Airports: {
     validData: [
       {
-        airport_name: Faker.helpers.slugify(),
+        airport_name: Faker.lorem.word(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       },
       {
-        airport_name: Faker.helpers.slugify(),
+        airport_name: Faker.lorem.word(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       },
       {
-        airport_name: Faker.helpers.slugify(),
+        airport_name: Faker.lorem.word(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       }
@@ -106,6 +106,8 @@ module.exports = {
         this.Reviews.validData[1]
       )
     );
+
+    return data;
 
   }
 
