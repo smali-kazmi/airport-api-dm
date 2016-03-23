@@ -20,5 +20,9 @@
     "rsvp": "^3.2.1",
     "sequelize": "^3.20.0",
     "serve-favicon": "~2.2.1"
+  },
+  "devDependencies": {
+    "faker": "^3.1.0",
+    "mocha": "^2.4.5"
   }
 }
