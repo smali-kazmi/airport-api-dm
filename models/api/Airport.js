@@ -41,6 +41,15 @@ module.exports = function(sequelize, DataTypes) {
           where: $where, 
           defaults: $defaults
         });
+      },
+      getAllStats: function() {
+        var query = [
+          "SELECT a.id, a.name, count(*) as total_reviews FROM airports a",
+          "LEFT JOIN reviews r on a.id = r.fk_airport_id",
+          "GROUP BY a.id",
+          "ORDER BY total_reviews desc"
+        ].join(" ");
+        return sequelize.query(query, {type: sequelize.QueryTypes.SELECT});
       }
     }
   });
