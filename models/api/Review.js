@@ -108,6 +108,14 @@ module.exports = function(sequelize, DataTypes) {
           where: {id: id},
           include: [global.db.User, global.db.Airport]
         })
+      },
+      getByAirportId: function(airport_id) {
+        return this.findAll({
+          where: {fk_airport_id: airport_id},
+          attributes: ['id', 'overall_rating', 'recommended', 'date', 'content'],
+          include: [{model: global.db.User, as: 'author', attributes: ['id', 'name', 'country']}],
+          order: 'date desc'
+        })        
       }
     }
   });

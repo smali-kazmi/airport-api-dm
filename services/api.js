@@ -53,3 +53,20 @@ exports.getAirportStats = function(airport_id) {
   });
   return promise;
 };
+
+
+exports.getAirportReviews = function(airport_id) {
+
+  var RSVP = require('rsvp');
+  var promise = new RSVP.Promise(function(resolve, reject) {
+    db.Review
+      .getByAirportId(airport_id)
+      .then(function(reviews){
+        resolve(reviews);
+      })
+      .catch(function(error){
+        reject(error);
+      });
+  });
+  return promise;
+};
