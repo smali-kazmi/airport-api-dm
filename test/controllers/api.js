@@ -82,12 +82,12 @@ describe('This section contains api service test cases', function() {
         .end(function(err, res) {
           if (err) return done(err);
           res.body.should.be.instanceof(Object);
-          res.body.should.equal({})
+          res.body.should.eql({})
           done();
         });
     });
 
-    it.only('should return all records', function(done){
+    it('should return all records', function(done){
 
       var RSVP = require('rsvp');
       var records = fixtures.customData();
