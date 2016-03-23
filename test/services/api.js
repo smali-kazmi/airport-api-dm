@@ -58,11 +58,22 @@ describe('This section contains api service test cases', function() {
               done(error);
             });
       });
-
-      
     });
+  });
 
-
+  describe('#getAirportStats', function(){
+    
+    it.only('should return emtpy list', function(done){
+      apiService
+        .getAirportStats(1)
+        .then(function(record){
+          record.should.eql({});
+          done();
+        })
+        .catch(function(error){
+          done(error);
+        });
+    });
   });
 
 });
