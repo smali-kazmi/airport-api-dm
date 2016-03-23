@@ -29,7 +29,7 @@ exports.getAirportStats = function(airport_id) {
       .then(function(stats){
 
         var data = {};
-        if(_.has(stats, 'id')) {
+        if(!_.isEmpty(stats)) {
           data = _.pick(stats, 'id', 'name', 'link', 'title');
           data['reviews'] = stats.reviews.length;
           var dataForAverage = _.chain(stats.reviews)
@@ -47,7 +47,6 @@ exports.getAirportStats = function(airport_id) {
                                   return r.recommended === 1 
                                 }).length;          
         }
-
 
         resolve(data);
       })

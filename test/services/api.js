@@ -63,7 +63,7 @@ describe('This section contains api service test cases', function() {
 
   describe('#getAirportStats', function(){
     
-    it.only('should return emtpy list', function(done){
+    it('should return emtpy list', function(done){
       apiService
         .getAirportStats(1)
         .then(function(record){
@@ -74,6 +74,59 @@ describe('This section contains api service test cases', function() {
           done(error);
         });
     });
+
+    it('should return emtpy list if no param pass to function', function(done){
+      apiService
+        .getAirportStats()
+        .then(function(record){
+          record.should.eql({});
+          done();
+        })
+        .catch(function(error){
+          done(error);
+        });
+    });
+
+    it.only('should return all records', function(done){
+
+      var RSVP = require('rsvp');
+      var records = fixtures.customData();
+      var promises = [];
+
+      async.eachSeries(records, function(record, cb){
+        saveService
+          .record(record)
+          .then(function(saved){
+            cb();
+          })
+          .catch(function(){
+            cb();
+          });
+      }, function(error){
+          apiService
+            .getAirportStats(1)
+            .then(function(record){
+              
+              record.should.have.property('id');
+              record.should.have.property('name');
+              record.should.have.property('link');
+              record.should.have.property('title');
+              record.should.have.property('reviews');
+              record.should.have.property('average');
+              record.should.have.property('recommended');
+
+              record.reviews.should.eql(3);
+              record.average.should.eql(1);
+              record.recommended.should.eql(0);
+              
+              done();
+            })
+            .catch(function(error){
+              done(error);
+            });
+      });
+    });
+
   });
 
 });
