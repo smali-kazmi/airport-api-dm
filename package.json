@@ -25,6 +25,7 @@
   "devDependencies": {
     "faker": "^3.1.0",
     "mocha": "^2.4.5",
-    "should": "^8.3.0"
+    "should": "^8.3.0",
+    "supertest": "^1.2.0"
   }
 }
