@@ -28,22 +28,26 @@ exports.getAirportStats = function(airport_id) {
       .getStatById(airport_id)
       .then(function(stats){
 
-        var data = _.pick(stats, 'id', 'name', 'link', 'title');
-        data['reviews'] = stats.reviews.length;
-        var dataForAverage = _.chain(stats.reviews)
-                            .map('overall_rating')
-                            .filter(function(a){
-                              return a !== null;
-                            })
-                            .value();
-        data['average'] = dataForAverage.length > 0 ? dataForAverage
-                            .reduce(function(a, b){
-                              return a + b;
-                            }) / dataForAverage.length : 0;
+        var data = {};
+        if(_.has(stats, 'id')) {
+          data = _.pick(stats, 'id', 'name', 'link', 'title');
+          data['reviews'] = stats.reviews.length;
+          var dataForAverage = _.chain(stats.reviews)
+                              .map('overall_rating')
+                              .filter(function(a){
+                                return a !== null;
+                              })
+                              .value();
+          data['average'] = dataForAverage.length > 0 ? dataForAverage
+                              .reduce(function(a, b){
+                                return a + b;
+                              }) / dataForAverage.length : 0;
 
-        data['recommended'] = _.filter(stats.reviews, function(r){ 
-                                return r.recommended === 1 
-                              }).length;
+          data['recommended'] = _.filter(stats.reviews, function(r){ 
+                                  return r.recommended === 1 
+                                }).length;          
+        }
+
 
         resolve(data);
       })
