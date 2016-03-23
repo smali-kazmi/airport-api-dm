@@ -4,43 +4,43 @@ module.exports = {
   Users: {
     validData: [
       {
-        name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
-        country: Faker.address.city()
+        author: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+        author_country: Faker.address.city()
       },
       {
-        name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
-        country: Faker.address.city()
+        author: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+        author_country: Faker.address.city()
       },
       {
-        name: Faker.name.firstName() + ' ' + Faker.name.lastName(),
-        country: Faker.address.city()
+        author: Faker.name.firstName() + ' ' + Faker.name.lastName(),
+        author_country: Faker.address.city()
       }
     ],
     invalidData: [
       {},
       {
-        name: '',
-        country: ''
+        author: '',
+        author_country: ''
       },
       {
-        country: ''
+        author_country: ''
       }
     ]
   },
   Airports: {
     validData: [
       {
-        name: Faker.helpers.slugify(),
+        airport_name: Faker.helpers.slugify(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       },
       {
-        name: Faker.helpers.slugify(),
+        airport_name: Faker.helpers.slugify(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       },
       {
-        name: Faker.helpers.slugify(),
+        airport_name: Faker.helpers.slugify(),
         link: Faker.lorem.words(),
         title: Faker.lorem.words(),
       }
@@ -48,7 +48,7 @@ module.exports = {
     invalidData: [
       {},
       {link: ''},
-      {name: ''}
+      {airport_name: ''}
     ]
   },
   Reviews: {
