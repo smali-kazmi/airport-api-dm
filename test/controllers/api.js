@@ -130,6 +130,70 @@ describe('This section contains api service test cases', function() {
 
   });
 
+
+  describe('GET /api/[airport]/reviews', function(){
+    var url = '/api/1/reviews';
+    it('should return emtpy list', function(done){
+
+      request(app)
+        .get(url)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res) {
+          if (err) return done(err);
+          res.body.should.be.instanceof(Array);
+          res.body.length.should.equal(0)
+          done();
+        });
+    });
+
+    it.only('should return all records', function(done){
+
+      var RSVP = require('rsvp');
+      var records = fixtures.customData();
+      var promises = [];
+
+      async.eachSeries(records, function(record, cb){
+        saveService
+          .record(record)
+          .then(function(saved){
+            cb();
+          })
+          .catch(function(){
+            cb();
+          });
+      }, function(error){
+        request(app)
+          .get(url)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res) {
+            if (err) return done(err);
+
+            res.body.should.be.instanceof(Array);
+
+            res.body.length.should.eql(3);
+            res.body[0].should.have.property('id');
+            res.body[0].should.have.property('overall_rating');
+            res.body[0].should.have.property('recommended');
+            res.body[0].should.have.property('date');
+            res.body[0].should.have.property('content');
+            res.body[0].should.have.property('author');
+
+            res.body[0].author.should.be.an.instanceOf(Object);
+            res.body[0].author.should.have.property('id');
+            res.body[0].author.should.have.property('name');
+            res.body[0].author.should.have.property('country');
+
+            done();
+          });
+          
+      });
+    });
+
+  });
+
+
   
 
 });
