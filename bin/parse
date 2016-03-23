@@ -52,7 +52,7 @@ var mapToHeader = function(header, data) {
   var obj = {};
 
   for(var x in header) {
-    obj[header[x]] = data[x];
+    obj[header[x]] = data[x].trim() ? data[x] : null;
   }
   return obj;
 };
