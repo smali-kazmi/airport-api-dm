@@ -61,7 +61,7 @@ exports.getAirportStats = function(req, res) {
 };
 
 /**
- * @api {get} /api/:airport_id/reviews Returns an object of airport reviews
+ * @api {get} /api/:airport_id/reviews?overall_rating=0 Returns an object of airport reviews
  * @apiName Get List of all Airport's Review
  * @apiGroup Airport
  * @apiParam {Number} airport_id Airport unique ID.
