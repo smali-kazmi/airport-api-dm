@@ -11,7 +11,9 @@ var apiService = require('../services/api');
  * @apiSuccess (200) {Number}   stats.id               id of the airport.
  * @apiSuccess (200) {String}   stats.name             name of the airport.
  * @apiSuccess (200) {Number}   stats.total_reviews    count of reviews in system.
- * 
+ *
+ * @apiError (500) {Object} object error message object 
+ * @apiError (500) {Object} object.message contains the error message 
  */
 
 exports.getAllStats = function(req, res) {
@@ -40,7 +42,9 @@ exports.getAllStats = function(req, res) {
  * @apiSuccess (200) {Number}   reviews    count of reviews.
  * @apiSuccess (200) {Number}   average    average of "overall_rating".
  * @apiSuccess (200) {Number}   recommended   count of recommendations "recommended"
- * 
+ *
+ * @apiError (500) {Object} object error message object 
+ * @apiError (500) {Object} object.message contains the error message 
  */
 
 exports.getAirportStats = function(req, res) {
@@ -71,6 +75,10 @@ exports.getAirportStats = function(req, res) {
  * @apiSuccess (200) {Number} author.id  id of the author.
  * @apiSuccess (200) {String} author.name  name of the author.
  * @apiSuccess (200) {String} author.country  country of the author.
+ * 
+ * @apiError (500) {Object} object error message object 
+ * @apiError (500) {Object} object.message contains the error message 
+ * 
  */
 
 exports.getAirportReviews = function(req, res) {
