@@ -58,12 +58,12 @@ exports.getAirportStats = function(airport_id) {
 };
 
 
-exports.getAirportReviews = function(airport_id) {
+exports.getAirportReviews = function(airport_id, overall_rating) {
 
   var RSVP = require('rsvp');
   var promise = new RSVP.Promise(function(resolve, reject) {
     db.Review
-      .getByAirportId(airport_id)
+      .getByAirportId(airport_id, overall_rating)
       .then(function(reviews){
         resolve(reviews);
       })

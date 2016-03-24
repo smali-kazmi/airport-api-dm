@@ -84,7 +84,7 @@ exports.getAirportStats = function(req, res) {
 exports.getAirportReviews = function(req, res) {
 
   apiService
-    .getAirportReviews(req.params.airport_id)
+    .getAirportReviews(req.params.airport_id, req.query.overall_rating)
     .then(function(reviews){
       res.json(reviews);
     })

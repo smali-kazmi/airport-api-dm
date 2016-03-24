@@ -109,9 +109,16 @@ module.exports = function(sequelize, DataTypes) {
           include: [global.db.User, global.db.Airport]
         })
       },
-      getByAirportId: function(airport_id) {
+      getByAirportId: function(airport_id, overall_rating) {
+
+        var $where = {fk_airport_id: airport_id};
+
+        if(overall_rating) {
+          $where['overall_rating'] = {$gte: overall_rating}
+        }
+
         return this.findAll({
-          where: {fk_airport_id: airport_id},
+          where: $where,
           attributes: ['id', 'overall_rating', 'recommended', 'date', 'content'],
           include: [{model: global.db.User, as: 'author', attributes: ['id', 'name', 'country']}],
           order: 'date desc'
