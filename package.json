@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "NODE_ENV='test' mocha --recursive",
-    "generate-doc": "./node_modules/apidoc/bin/apidoc -i ./controllers -o ./public/docs",
+    "generate-doc": "./node_modules/apidoc/bin/apidoc -i ./controllers -o ./docs",
     "parse-csv": "node ./bin/parse"
   },
   "dependencies": {
