@@ -32,6 +32,19 @@ INSTALLATION
 
 Follow this link: https://gist.github.com/smali-kazmi/e3e75324dc1b3f80f32a
 
+Please both files into a folder and run following commands
+
+```
+vagrant up
+vagrant ssh
+```
+
+after `ssh` 
+
+```
+cd /vagrant/airport-api-dm
+npm run start //start node instance
+```
 ~~~
 http://localhost:3000/api/all/stats
 ~~~
