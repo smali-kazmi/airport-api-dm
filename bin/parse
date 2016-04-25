@@ -7,6 +7,8 @@ var header = null;
 var Queue = require('mel-queue');
 var q = new Queue();
 
+var isQueueInit = false;
+
 csv
  .fromPath("./bin/file.csv")
  .transform(function(data){
@@ -32,6 +34,10 @@ csv
         });
     });
 
+    if(!isQueueInit) {
+      q.run();
+      isQueueInit = true;
+    }
      
  })
  .on("end", function(){
@@ -42,10 +48,6 @@ q.on('end', function() {
   console.log('Queue ended');
   process.exit();
 });
-
-setTimeout(function(){
-  q.run();
-}, 1000);
 
 
 var mapToHeader = function(header, data) {
